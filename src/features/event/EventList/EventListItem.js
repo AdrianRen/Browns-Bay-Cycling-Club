@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Segment, Item, List, Icon, Button, Image} from 'semantic-ui-react';
+import {Segment, Item, List, Icon, Button} from 'semantic-ui-react';
 import EventListAttendee from './EventListAttendee';
 
 class EventListItem extends Component {
@@ -29,7 +29,7 @@ class EventListItem extends Component {
         <Segment secondary>
           <List horizontal>
             {/*<EventListAttendee/>*/}
-            {event.attendees.map(attendee =>
+            {event.attendees && event.attendees.map(attendee =>
               <EventListAttendee key={attendee.id} attendee={attendee}/>
             )}
           </List>
