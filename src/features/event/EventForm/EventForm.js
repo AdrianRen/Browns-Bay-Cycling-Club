@@ -22,15 +22,23 @@ class EventForm extends Component {
     }
   }
 
-  componentDidUpdate(prevProps, prevState, snapshot) {
-    console.log(`prevProps`, prevProps);
-    console.log(`prevState`, prevState);
-    console.log(`snapshot`, snapshot);
+  componentDidUpdate(prevProps, prevState) {
+    if( !this.props.selectedEvent && !prevProps.selectedEvent) return;
+    if (this.props.selectedEvent.id !== prevProps.selectedEvent.id) {
+      this.setState({
+        event: this.props.selectedEvent || emptyEvent
+      })
+    }
   }
+
 
   onFormSubmit = evt => {
     evt.preventDefault();
-    this.props.handleCreateEvent(this.state.event);
+    if (this.state.event.id) {
+      this.props.updateEvent(this.state.event);
+    } else {
+      this.props.handleCreateEvent(this.state.event);
+    }
   };
 
   onInputChange = evt => {
@@ -40,6 +48,7 @@ class EventForm extends Component {
       event: newEvent
     })
   };
+
 
   render() {
     const { handleFormCancel } = this.props;
