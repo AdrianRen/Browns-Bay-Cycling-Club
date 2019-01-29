@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
 function UserDetailedPage(props) {
   return (
@@ -10,8 +9,5 @@ function UserDetailedPage(props) {
     </div>
   );
 }
-
-UserDetailedPage.propTypes = {};
-UserDetailedPage.defaultProps = {};
 
 export default UserDetailedPage;

@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
 function AccountPage(props) {
   return (
@@ -8,8 +7,5 @@ function AccountPage(props) {
     </div>
   );
 }
-
-AccountPage.propTypes = {};
-AccountPage.defaultProps = {};
 
 export default AccountPage;

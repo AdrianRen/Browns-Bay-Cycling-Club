@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
 function PhotosPage(props) {
   return (
@@ -8,8 +7,5 @@ function PhotosPage(props) {
     </div>
   );
 }
-
-PhotosPage.propTypes = {};
-PhotosPage.defaultProps = {};
 
 export default PhotosPage;

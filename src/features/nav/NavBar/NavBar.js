@@ -26,7 +26,6 @@ class NavBar extends Component {
 
   render() {
     const {authenticated} = this.state;
-    console.log(this.props);
     return (
       <Menu inverted fixed="top">
         <Container>
@@ -35,6 +34,7 @@ class NavBar extends Component {
             BBCC
           </Item>
           <Item name="Events" as={NavLink} to='/events'/>
+          <Item name="TestArea" as={NavLink} to='/testArea'/>
           {authenticated && <Item name="People" as={NavLink} to='/people'/>}
           {authenticated &&
             <Item>
