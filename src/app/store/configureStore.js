@@ -3,7 +3,9 @@ import { composeWithDevTools } from "redux-devtools-extension";
 import rootReducer from '../reducers/rootReducer';
 
 export const configureStore = (preloadedState) => {
+
   const middleware = [];
+
   const middlewareEnhancer = applyMiddleware(...middleware);
 
   const storeEnhancer = [middlewareEnhancer];
