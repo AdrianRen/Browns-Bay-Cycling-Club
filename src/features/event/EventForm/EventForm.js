@@ -1,3 +1,4 @@
+/*global google*/
 import React, {Component} from 'react';
 import { Segment, Form, Button, Grid, Header } from 'semantic-ui-react';
 import { updateEvent, createEvent } from "../eventAction";
@@ -7,6 +8,9 @@ import TextInput from '../../../app/common/form/TextInput';
 import TextArea from '../../../app/common/form/TextArea';
 import SelectInput from '../../../app/common/form/SelectInput';
 import DateInput from '../../../app/common/form/DateInput';
+import Script from 'react-load-script';
+import PlaceInput from '../../../app/common/form/PlaceInput';
+import { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
 import { composeValidators, combineValidators, isRequired, hasLengthGreaterThan} from 'revalidate';
 import moment from 'moment';
 import cuid from "cuid";
@@ -52,6 +56,26 @@ const validate = combineValidators({
 });
 
 class EventForm extends Component {
+  state = {
+    cityLatLng: {},
+    venueLatLng: {},
+    scriptLoaded: false
+  };
+
+  handleCitySelect = selectedCity => {
+    geocodeByAddress(selectedCity)
+      .then(results => getLatLng(results[0]))
+      .then(latlng=>{
+        this.setState({
+          cityLatLng:latlng
+        })
+      })
+      .then(()=>{
+        this.props.change('city', selectedCity)
+      })
+  };
+
+  handleScriptLoad = () => {this.setState({scriptLoaded: true})};
 
   onFormSubmit = value => {
     value.date=moment(value.date).format();
@@ -75,6 +99,10 @@ class EventForm extends Component {
     const { invalid, submitting, pristine } = this.props;
     return (
       <Grid>
+        <Script
+          url='https://maps.googleapis.com/maps/api/js?key=AIzaSyBoY12vzpd57ip2dI9058kJXRcdP9pZ-1s&libraries=places'
+          onLoad={this.handleScriptLoad}
+        />
         <Grid.Column width={10}>
           <Segment>
             <Header sub color='teal' content='Event Details'/>
@@ -84,8 +112,27 @@ class EventForm extends Component {
               <Field name='description' type='text' rows={3} component={TextArea} placeholder='Description of the event'/>
 
               <Header sub color='teal' content='Event Location Details'/>
-              <Field name='city' type='text' component={TextInput} placeholder='Event City'/>
-              <Field name='venue' type='text' component={TextInput} placeholder='Event Venue'/>
+              <Field
+                name='city'
+                type='text'
+                component={PlaceInput}
+                placeholder='Event City'
+                options={{types:['(cities)']}}
+                onSelect={this.handleCitySelect}
+              />
+              {this.state.scriptLoaded &&
+              <Field
+                name='venue'
+                type='text'
+                component={PlaceInput}
+                placeholder='Event Venue'
+                options={{
+                  location: new google.maps.LatLng(this.state.city),
+                  types:['(establishment)']
+                }}
+              />
+              }
+
               <Field
                 name='date'
                 type='date'
