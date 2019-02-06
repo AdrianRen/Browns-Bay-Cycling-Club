@@ -75,10 +75,24 @@ class EventForm extends Component {
       })
   };
 
+  handleVenueSelect = selectedVenue => {
+    geocodeByAddress(selectedVenue)
+      .then(results => getLatLng(results[0]))
+      .then(latlng => {
+        this.setState({
+          venueLatLng: latlng
+        });
+      })
+      .then(() => {
+        this.props.change('venue', selectedVenue)
+      })
+  };
+
   handleScriptLoad = () => {this.setState({scriptLoaded: true})};
 
   onFormSubmit = value => {
     value.date=moment(value.date).format();
+    value.venueLatLng = this.state.venueLatLng;
     if (this.props.initialValues.id) {
       this.props.updateEvent(value);
       this.props.history.goBack();
@@ -100,7 +114,7 @@ class EventForm extends Component {
     return (
       <Grid>
         <Script
-          url='https://maps.googleapis.com/maps/api/js?key=AIzaSyBoY12vzpd57ip2dI9058kJXRcdP9pZ-1s&libraries=places'
+          url='https://maps.googleapis.com/maps/api/js?key=AIzaSyD2T-8dpGEEgf5XfVnUCb6SOCsYcYCEtzA&libraries=places'
           onLoad={this.handleScriptLoad}
         />
         <Grid.Column width={10}>
@@ -127,9 +141,11 @@ class EventForm extends Component {
                 component={PlaceInput}
                 placeholder='Event Venue'
                 options={{
-                  location: new google.maps.LatLng(this.state.city),
+                  location: new google.maps.LatLng(this.state.cityLatLng),
+                  radius:1000,
                   types:['(establishment)']
                 }}
+                onSelect={this.handleVenueSelect}
               />
               }
 

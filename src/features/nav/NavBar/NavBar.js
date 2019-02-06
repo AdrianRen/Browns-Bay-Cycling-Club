@@ -8,7 +8,7 @@ const Item = Menu.Item;
 
 class NavBar extends Component {
   state = {
-    authenticated: false
+    authenticated: true
   };
 
   handleSignIn = () => {
