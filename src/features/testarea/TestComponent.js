@@ -1,10 +1,11 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
-import { Button, Form, Icon } from 'semantic-ui-react';
-import Script from 'react-load-script';
+import { Button, Form } from 'semantic-ui-react';
+// import Script from 'react-load-script';
 import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-places-autocomplete'
-import GoogleMapReact from 'google-map-react';
+// import GoogleMapReact from 'google-map-react';
 import {incrementCounter, decrementCounter} from "./testActions";
+import { openModal } from '../modals/ModalActions';
 
 const mapState = state => ({
   data: state.test.data
@@ -12,9 +13,10 @@ const mapState = state => ({
 
 const actions = {
   incrementCounter,
-  decrementCounter
+  decrementCounter,
+  openModal
 };
-const Marker = () => <Icon name='marker' size='big' color='red'/>;
+// const Marker = () => <Icon name='marker' size='big' color='red'/>;
 
 
 class TestComponent extends Component {
@@ -41,12 +43,12 @@ class TestComponent extends Component {
       .catch(error => console.error('Error', error))
   };
 
-  onChange = address => {this.setState({address})};
+  // onChange = address => {this.setState({address})};
 
-  handleScriptLoad = () => {this.setState({scriptLoaded:true})};
+  // handleScriptLoad = () => {this.setState({scriptLoaded:true})};
 
   render() {
-    const { incrementCounter, decrementCounter, data} = this.props;
+    const { incrementCounter, decrementCounter, data, openModal} = this.props;
     const inputProps = {
       value: this.state.address,
       onChange: this.onChange,
@@ -54,14 +56,15 @@ class TestComponent extends Component {
 
     return (
       <div>
-        <Script
-          url='https://maps.googleapis.com/maps/api/js?key=AIzaSyD2T-8dpGEEgf5XfVnUCb6SOCsYcYCEtzA&libraries=places'
-          onLoad={this.handleScriptLoad}
-        />
+        {/*<Script*/}
+          {/*url='https://maps.googleapis.com/maps/api/js?key=AIzaSyD2T-8dpGEEgf5XfVnUCb6SOCsYcYCEtzA&libraries=places'*/}
+          {/*onLoad={this.handleScriptLoad}*/}
+        {/*/>*/}
         <h1>test area</h1>
         <h4>The Answer is: {data}</h4>
         <Button onClick={incrementCounter} color='green' content='Increment'/>
         <Button onClick={decrementCounter} color='red' content='Decrement'/>
+        <Button onClick={() => openModal('TestModal', {data: 43})} color='yellow' content='Open Modal'/>
         <br/>
         <br/>
         <br/>
@@ -78,19 +81,19 @@ class TestComponent extends Component {
         <br/>
         <br/>
         <br/>
-        <div style={{ height: '300px', width: '100%' }}>
-          <GoogleMapReact
-            bootstrapURLKeys={{ key: 'AIzaSyD2T-8dpGEEgf5XfVnUCb6SOCsYcYCEtzA' }}
-            defaultCenter={this.props.center}
-            defaultZoom={this.props.zoom}
-          >
-            <Marker
-              lat={59.955413}
-              lng={30.337844}
-              text="My Marker"
-            />
-          </GoogleMapReact>
-        </div>
+        {/*<div style={{ height: '300px', width: '100%' }}>*/}
+          {/*<GoogleMapReact*/}
+            {/*bootstrapURLKeys={{ key: 'AIzaSyD2T-8dpGEEgf5XfVnUCb6SOCsYcYCEtzA' }}*/}
+            {/*defaultCenter={this.props.center}*/}
+            {/*defaultZoom={this.props.zoom}*/}
+          {/*>*/}
+            {/*<Marker*/}
+              {/*lat={59.955413}*/}
+              {/*lng={30.337844}*/}
+              {/*text="My Marker"*/}
+            {/*/>*/}
+          {/*</GoogleMapReact>*/}
+        {/*</div>*/}
       </div>
     );
   }
