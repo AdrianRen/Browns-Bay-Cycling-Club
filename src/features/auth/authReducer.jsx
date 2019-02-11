@@ -6,7 +6,6 @@ const initalState = {
 };
 
 export const loginUser = (state, payload) => {
-  const {creds} = payload;
   return {
     ...state,
     authenticated: true,
@@ -14,7 +13,7 @@ export const loginUser = (state, payload) => {
   };
 };
 
-export const signOutUser = (state, payload) => {
+export const signOutUser = (state) => {
   return {
     ...state,
     authenticated: false,
