@@ -3,6 +3,7 @@ import { Grid } from 'semantic-ui-react';
 import EventList from '../../../features/event/EventList/EventList';
 import { connect } from 'react-redux';
 import LoadingComponent from '../../../app/layout/LoadingComponent';
+import EventActivity from '../../../features/event/EventActivity/EventActivity';
 import { createEvent, updateEvent, deleteEvent } from "../eventAction";
 
 const Column = Grid.Column;
@@ -34,6 +35,7 @@ class EventDashboard extends Component {
         </Column>
 
         <Column width={6}>
+          <EventActivity/>
         </Column>
       </Grid>
     );
