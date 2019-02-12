@@ -5,15 +5,15 @@ const initialState = {
   loading: false
 };
 
-export const asyncActionStarted = (state, payload) => {
+export const asyncActionStarted = state => {
   return {...state, loading: true}
 };
 
-export const asyncActionFinished = (state, payload) => {
+export const asyncActionFinished = state => {
   return {...state, loading: false}
 };
 
-export const asyncActionError = (state, payload) => {
+export const asyncActionError = state => {
   return {...state, loading: false}
 };
 
