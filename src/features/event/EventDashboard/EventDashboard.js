@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import { Grid } from 'semantic-ui-react';
 import EventList from '../../../features/event/EventList/EventList';
 import { connect } from 'react-redux';
+import { firestoreConnect } from 'react-redux-firebase';
 import LoadingComponent from '../../../app/layout/LoadingComponent';
 import EventActivity from '../../../features/event/EventActivity/EventActivity';
 import { createEvent, updateEvent, deleteEvent } from "../eventAction";
@@ -42,4 +43,6 @@ class EventDashboard extends Component {
   }
 }
 
-export default connect(mapState, actions)(EventDashboard);
+export default connect(mapState, actions)(
+  firestoreConnect([{collection:'events'}])(EventDashboard)
+);

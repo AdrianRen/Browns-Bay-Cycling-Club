@@ -22,7 +22,7 @@ export const configureStore = (preloadedState) => {
 
   const composedEnhancer = composeWithDevTools(
     ...storeEnhancer,
-    reactReduxFirebase(firebase),
+    reactReduxFirebase(firebase, rrfConfig),
     reduxFirestore(firebase)
   );
 
