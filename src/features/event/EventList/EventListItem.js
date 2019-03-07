@@ -24,22 +24,20 @@ class EventListItem extends Component {
         </Segment>
         <Segment>
           <span>
-            {/* at {` `}{format(event.data, 'HH:mm')}*/}
-            <Icon name="clock" /> {format(event.date, 'dddd Do MMMM')} |
+            <Icon name="clock" /> {format(event.date.toDate(), 'dddd Do MMMM')} |
             <Icon name="marker" /> {event.venue}
           </span>
         </Segment>
         <Segment secondary>
           <List horizontal>
-            {/*<EventListAttendee/>*/}
-            {event.attendees && event.attendees.map(attendee =>
+            {event.attendees &&
+            Object.values(event.attendees).map(attendee =>
               <EventListAttendee key={attendee.id} attendee={attendee}/>
             )}
           </List>
         </Segment>
         <Segment clearing>
           <span>{event.description}</span>
-          {/*<Button as="a" color="teal" floated="right" content="View" onClick={onEventOpen(event)}/>*/}
           <Button as={Link} to={`/event/${event.id}`} color="teal" floated="right" content="View" />
           <Button as="a" color="red" floated="right" content="Delete" onClick={()=>deleteEvent(event.id)}/>
         </Segment>

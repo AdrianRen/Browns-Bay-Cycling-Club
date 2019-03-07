@@ -10,7 +10,7 @@ import { createEvent, updateEvent, deleteEvent } from "../eventAction";
 const Column = Grid.Column;
 
 const mapState = state => ({
-  events: state.events,
+  events: state.firestore.ordered.events,
   loading: state.async.loading
 });
 
