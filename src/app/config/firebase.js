@@ -6,7 +6,7 @@ const firebaesConfig ={
   authDomain: "bbcc-e36d2.firebaseapp.com",
   databaseURL: "https://bbcc-e36d2.firebaseio.com",
   projectId: "bbcc-e36d2",
-  storageBucket: "",
+  storageBucket: "bbcc-e36d2.appspot.com",
   messagingSenderId: "584932418479"
 };
 

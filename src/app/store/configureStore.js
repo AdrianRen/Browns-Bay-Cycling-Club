@@ -13,15 +13,14 @@ const rrfConfig = {
 };
 
 export const configureStore = (preloadedState) => {
-
   const middlewares = [thunk.withExtraArgument({getFirebase, getFirestore})];
 
   const middlewareEnhancer = applyMiddleware(...middlewares);
 
-  const storeEnhancer = [middlewareEnhancer];
+  const storeEnhancers = [middlewareEnhancer];
 
   const composedEnhancer = composeWithDevTools(
-    ...storeEnhancer,
+    ...storeEnhancers,
     reactReduxFirebase(firebase, rrfConfig),
     reduxFirestore(firebase)
   );
