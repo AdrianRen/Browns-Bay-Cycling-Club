@@ -24,7 +24,6 @@ export const registerUser = user => {
     try {
     //  create the user in auth
       let createdUser = await firebase.auth().createUserWithEmailAndPassword(user.email, user.password);
-      console.log(`createUser`,createdUser);
     //  update the auth profile
       await createdUser.updateProfile({
         displayName: user.displayName
@@ -38,6 +37,9 @@ export const registerUser = user => {
       dispatch(closeModal());
     } catch (e) {
       console.log(`e`,e);
+      throw new SubmissionError({
+        _error:e.message
+      });
     }
   };
 };
