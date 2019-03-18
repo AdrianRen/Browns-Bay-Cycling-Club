@@ -68,4 +68,4 @@ class Basics extends Component {
   }
 }
 
-export default reduxForm({form: 'userProfile', enableReinitialize: true})(Basics);
+export default reduxForm({form: 'userProfile', enableReinitialize: true, destroyOnUnmount:false})(Basics);
