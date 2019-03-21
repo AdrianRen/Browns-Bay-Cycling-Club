@@ -2,7 +2,14 @@ import React, {Component} from 'react';
 import {Image, Segment, Header, Divider, Grid, Button, Card, Icon} from 'semantic-ui-react';
 import Dropzone from 'react-dropzone';
 import Cropper from 'react-cropper';
+import { connect } from 'react-redux';
 import 'cropperjs/dist/cropper.css';
+import { toastr} from "react-redux-toastr";
+import { uploadProfileImage} from "../userActions";
+
+const actions = {
+  uploadProfileImage
+};
 
 class PhotosPage extends Component {
 
@@ -11,6 +18,23 @@ class PhotosPage extends Component {
     fileName:'',
     cropResult:null,
     image:{}
+  };
+
+  uploadImage = async () => {
+    try {
+      await this.props.uploadProfileImage(this.state.image, this.state.fileName);
+      this.cancelCrop();
+      toastr.success('Success!', 'Photo has been uploaded');
+    } catch (e) {
+      toastr.error('Oops', e.message);
+    }
+  };
+
+  cancelCrop = () => {
+    this.setState({
+      files: [],
+      image: {}
+    })
   };
 
   onDrop = files => {
@@ -69,7 +93,13 @@ class PhotosPage extends Component {
           <Grid.Column width={4}>
             <Header sub color='teal' content='Step 3 - Preview and Upload' />
             {this.state.files[0] &&
+            <div>
               <Image style={{minHeight:'200px', minWidth:'200px'}} src={this.state.cropResult}/>
+              <Button.Group>
+                <Button onClick={this.uploadImage} style={{width:'100px'}} positive icon='check'/>
+                <Button onClick={this.cancelCrop} style={{width:'100px'}} icon='close'/>
+              </Button.Group>
+            </div>
             }
           </Grid.Column>
 
@@ -99,4 +129,4 @@ class PhotosPage extends Component {
   }
 }
 
-export default PhotosPage;
+export default connect(null, actions)(PhotosPage);
