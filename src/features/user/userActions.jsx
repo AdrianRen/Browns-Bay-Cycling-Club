@@ -48,7 +48,7 @@ export const uploadProfileImage= (file, fileName) => {
       return await firestore.add({
         collection: 'users',
         doc: user.uid,
-        subCollections: [{collection:'photos'}]
+        subcollections: [{collection:'photos'}]
       }, {
         name: fileName,
         url: downloadURL
